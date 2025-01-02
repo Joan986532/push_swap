@@ -46,25 +46,25 @@ int ft_create_stack(char *args_joined, t_list **stack_a) // main
 
 	i = 0;
 	arg_split = ft_split(args_joined, ' ');
-	if (!ft_check_syntax(arg_split) || !ft_check_for_int_minmax(arg_split))
-	{
-		ft_free(arg_split);
-		write(2, "Error\n", 6);
-		return (0);
-	}
-	while (arg_split[i])
-	{
-		content = 0;
-		if(!ft_atol(arg_split[i], &content))
-		{
-			ft_free(arg_split);
-			return (0);
-		}
-		ft_lstadd_back(stack_a, ft_lstnew(content));
-		i++;
+	if (ft_check_syntax(arg_split) && ft_check_for_int_minmax(arg_split))
+	{	
+        while (arg_split[i])
+	    {
+		    content = 0;
+		    if(!ft_atol(arg_split[i], &content))
+            {
+                ft_free(arg_split);
+                return (0);
+            }
+            ft_lstadd_back(stack_a, ft_lstnew(content));
+            i++;
+        }
+	    ft_free(arg_split);
+	    return (1);
 	}
 	ft_free(arg_split);
-	return (1);
+	write(2, "Error\n", 6);
+	return (0);
 }
 
 void	ft_free(char **arg_split)

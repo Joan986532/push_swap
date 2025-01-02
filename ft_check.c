@@ -13,27 +13,27 @@
 int ft_check_syntax(char **str)
 {
 	int	i;
-    int j;
 
-	j = 0;
     i = 0;
-	while (str[j][i] != '\0')
+	while (*str)
 	{
         i = 0;
-        while (str[j][i] != '\0')
+        while ((*str)[i] != '\0')
         {
-            while (str && str[j][i] == ' ')
+            while ((*str)[i] == ' ')
                 i++;
-            if (str && (str[j][i] == '-' || str[j][i] == '+'))
+            if ((*str)[i] == '-' || (*str)[i] == '+')
                 i++;
-            while (str && str[j][i])
+            if (!ft_isdigit((int)(*str)[i]))
+                return (0);
+            while ((*str)[i])
             {
-                if (!ft_isdigit((int)str[j][i]))
+                if (!ft_isdigit((int)(*str)[i]))
                     return (0);
                 i++;
             }
         }
-        j++;
+        str++;
 	}
 	return (1);
 }

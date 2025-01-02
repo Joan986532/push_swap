@@ -16,7 +16,11 @@ void	ft_short_sort(t_list **stack_a)
 	if (ft_lstsize(*stack_a) == 2)
 		ft_sort_two_args(stack_a);
 	if (ft_lstsize(*stack_a) == 3)
+    {
+        if (!ft_check_sort(stack_a))
+            return ;
 		ft_sort_three_args(stack_a);
+    }
 }
 
 void	ft_sort_two_args(t_list **stack_a)
