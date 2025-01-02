@@ -40,46 +40,46 @@ int ft_check_for_int_minmax(char **args) // ft_create_stack
 
 int ft_create_stack(char *args_joined, t_list **stack_a) // main
 {
-	char	**args_splited;
+	char	**arg_split;
 	int		content;
 	int		i;
 
 	i = 0;
-	args_splited = ft_split(args_joined, ' ');
-	if (!ft_check_for_int_minmax(args_splited))
+	arg_split = ft_split(args_joined, ' ');
+	if (!ft_check_syntax(arg_split) || !ft_check_for_int_minmax(arg_split))
 	{
-		ft_free(args_splited);
+		ft_free(arg_split);
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	while (args_splited[i])
+	while (arg_split[i])
 	{
 		content = 0;
-		if(!ft_atol(args_splited[i], &content))
+		if(!ft_atol(arg_split[i], &content))
 		{
-			ft_free(args_splited);
+			ft_free(arg_split);
 			return (0);
 		}
 		ft_lstadd_back(stack_a, ft_lstnew(content));
 		i++;
 	}
-	ft_free(args_splited);
+	ft_free(arg_split);
 	return (1);
 }
 
-void	ft_free(char **args_splited)
+void	ft_free(char **arg_split)
 {
 	int	i;
 	
 	i = 0;
-	while (args_splited[i] != NULL)
+	while (arg_split[i] != NULL)
 		i++;
 	while (i > 0)
 	{
-		free(args_splited[i]);
+		free(arg_split[i]);
 		i--;
 	}
-	free(args_splited[i]);
+	free(arg_split[i]);
 }
 
 int ft_check_for_doubles(t_list **stack_a) //main

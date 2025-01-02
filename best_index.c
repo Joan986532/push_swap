@@ -110,23 +110,4 @@ void	ft_cost_b(t_list *stack_a, t_list **stack_b) //ft_cost_total
 	}
 }
 
-#include <stdio.h>
-int ft_pars_and_create(int argc, char **argv, t_list **stack_a) //main
-{
-	char *args_joined;
 
-	args_joined = ft_parsing(argc, argv);
-	if (!args_joined)
-		return (1);
-	if (!ft_create_stack(args_joined, stack_a))
-			return (1);
-	if(!ft_check_for_doubles(stack_a))
-		return (1);
-	if (!ft_check_sort(stack_a))
-	{
-		ft_lstclear(stack_a);
-		return (1);
-	}
-	free(args_joined);
-	return (0);
-}

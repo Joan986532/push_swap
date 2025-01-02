@@ -10,26 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-int ft_check_syntax(char *str)
+int ft_check_syntax(char **str)
 {
 	int	i;
-	int flag;
+    int j;
 
-	i = 0;
-	flag = 1;
-	while (str[i] != '\0')
+	j = 0;
+    i = 0;
+	while (str[j][i] != '\0')
 	{
-		while (str[i] == ' ')
-			i++;
-		if (str && (str[i] == '-' || str[i] == '+') && flag == 1)
-		{
-			flag = 0;
-			i++;
-		}
-		while (str && ft_isdigit((int)str[i]))
-			i++;
-		if (str[i] == ' ' && (str[i - 1] == '-' || str[i - 1] == '+'))
-			return (0);
+        i = 0;
+        while (str[j][i] != '\0')
+        {
+            while (str && str[j][i] == ' ')
+                i++;
+            if (str && (str[j][i] == '-' || str[j][i] == '+'))
+                i++;
+            while (str && str[j][i])
+            {
+                if (!ft_isdigit((int)str[j][i]))
+                    return (0);
+                i++;
+            }
+        }
+        j++;
 	}
 	return (1);
 }
@@ -77,13 +81,9 @@ int	ft_check_empty(char *str)
 
 int ft_verification(char *str) // ft_parsing
 {
-	int i;
-
-	i = 0;
 	if (ft_check_empty(str))
-		if (ft_check_syntax(str))
-			if (ft_check_wrong_char(str))
-				return (1);
+		if (ft_check_wrong_char(str))
+			return (1);
 	write(2, "Error\n", 6);
 	return (0);
 }

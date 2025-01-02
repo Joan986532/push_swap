@@ -75,3 +75,28 @@ int	ft_find_the_lower(t_list **stck)
 	return (mark);
 }
 
+int ft_find_the_higher(t_list **stck)
+{
+	t_list *tmp_list;
+	int temp;
+	int mark;
+	int i;
+
+	i = 0;
+	mark = 0;
+	tmp_list = *stck;
+	temp = tmp_list->content;
+	while (tmp_list)
+	{
+		if (temp < tmp_list->content)
+		{
+			temp = tmp_list->content;
+			mark = i;
+		}
+		tmp_list = tmp_list->next;
+		i++;
+	}
+	if (mark > ft_lstsize(*stck) / 2)
+		mark = (ft_lstsize(*stck) - mark) * (-1);
+	return (mark);
+}

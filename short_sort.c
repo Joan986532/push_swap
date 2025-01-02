@@ -11,19 +11,12 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	ft_short_sort(t_list **stack_a, t_list **stack_b)
+void	ft_short_sort(t_list **stack_a)
 {
-	int size;
-
-	size = ft_lstsize(*stack_a);
-	if (size == 2)
+	if (ft_lstsize(*stack_a) == 2)
 		ft_sort_two_args(stack_a);
-	if (size == 3)
+	if (ft_lstsize(*stack_a) == 3)
 		ft_sort_three_args(stack_a);
-	if (size == 4)
-		ft_sort_four_args(stack_a, stack_b);
-	if (size == 5)
-		ft_sort_five_args(stack_a, stack_b);
 }
 
 void	ft_sort_two_args(t_list **stack_a)
@@ -32,89 +25,29 @@ void	ft_sort_two_args(t_list **stack_a)
 		ft_swap_a(stack_a, 0);
 }
 
-void	ft_sort_three_args(t_list **stck)
+void ft_sort_three_args(t_list **a)
 {
-	if ((*stck)->content > (*stck)->next->content)
+	if ((*a)->content < (*a)->next->content)
 	{
-		if ((*stck)->next->content > (*stck)->next->next->content)
+		if ((*a)->content < (*a)->next->next->content)
 		{
-			ft_swap_a(stck, 0);
-			ft_reverse_rotate_a(stck, 0);
-		}
-		else if ((*stck)->next->content < (*stck)->next->next->content)
-		{
-			if ((*stck)->content > (*stck)->next->next->content)
-				ft_rotate_a(stck, 0);
-			else if ((*stck)->content < (*stck)->next->next->content)
-				ft_swap_a(stck, 0);
-		}
-	}
-	else if ((*stck)->content < (*stck)->next->content)
-	{
-		if ((*stck)->content > (*stck)->next->next->content)
-			ft_rotate_a(stck, 0);
+			ft_reverse_rotate_a(a, 0);
+			ft_swap_a(a, 0);
+        }
 		else
-		{
-			ft_reverse_rotate_a(stck, 0);
-			ft_swap_a(stck, 0);
-		}
+			ft_reverse_rotate_a(a, 0);
 	}
-}
-
-	/*int index;
-
-	index = ft_find_the_lower(stack_a);
-	while (index > 0)
+	else
 	{
-		ft_rotate_a(stack_a, 0);
-		index--;
+		if ((*a)->content > (*a)->next->next->content)
+			if ((*a)->next->content > (*a)->next->next->content)
+			{
+				ft_rotate_a(a, 0);
+				ft_swap_a(a, 0);
+			}
+			else
+				ft_rotate_a(a, 0);
+		else
+			ft_swap_a(a, 0);
 	}
-	while (index < 0)
-	{
-		ft_reverse_rotate_a(stack_a, 0);
-		index++;
-	}
-	ft_push_b(stack_b, stack_a);
-	ft_sort_two_args(stack_a);
-	ft_push_a(stack_a, stack_b);*/
-
-void ft_sort_four_args(t_list **stack_a, t_list **stack_b)
-{
-	int index;
-	
-	index = ft_find_the_lower(stack_a);
-	while (index > 0)
-	{
-		ft_rotate_a(stack_a, 0);
-		index--;
-	}
-	while (index < 0)
-	{
-		ft_reverse_rotate_a(stack_a, 0);
-		index++;
-	}
-	ft_push_b(stack_b, stack_a);
-	if (ft_check_sort(stack_a))
-		ft_sort_three_args(stack_a);
-	ft_push_a(stack_a, stack_b);
-}
-
-void ft_sort_five_args(t_list **stack_a, t_list **stack_b)
-{
-	int index;
-
-	index = ft_find_the_lower(stack_a);
-	while (index > 0)
-	{
-		ft_rotate_a(stack_a, 0);
-		index--;
-	}
-	while (index < 0)
-	{
-		ft_reverse_rotate_a(stack_a, 0);
-		index++;
-	}
-	ft_push_b(stack_b, stack_a);
-	ft_sort_four_args(stack_a, stack_b);
-	ft_push_a(stack_a, stack_b);
 }
